@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 interface Coin {
     id: string;
@@ -12,13 +12,17 @@ interface Coin {
 }
 import { fetchCoinData } from '../../services/fetchCoinData'
 import { useQuery } from '@tanstack/react-query';
+import { CurrencyContext } from '../../context/CurrencyContext';
 
 const CoinsTable = () => {
 
+    // TODO: INR symbol and USD symbol
+    const { currency } = useContext(CurrencyContext)
+
     const [page, setPage] = useState(1);
     const { isPending, isError, data, error } = useQuery({
-        queryKey: ['coinData', page],
-        queryFn: () => fetchCoinData(page, 'usd'),
+        queryKey: ['coinData', page, currency],
+        queryFn: () => fetchCoinData(page, currency),
         // retry: 2,
         // retryDelay: 1000,
         staleTime: 1000 * 60 * 5,
@@ -26,7 +30,7 @@ const CoinsTable = () => {
     })
 
 
-    console.log(page)
+
     if (isError) return <div>Error: {error.message}</div>
 
 
@@ -39,7 +43,7 @@ const CoinsTable = () => {
                 </div>
 
                 <div className='basis-[25%]'>
-                    Price
+                    Price {currency === 'usd' ? '$' : '₹'}
                 </div>
 
                 <div className='basis-[20%]'>
