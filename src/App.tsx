@@ -1,12 +1,16 @@
 import './App.css'
+import Banner from './components/Banner/Banner'
+import CoinsTable from './components/CoinsTable/CoinsTable'
+import Navbar from './components/Navbar/Navbar'
 
 function App() {
 
 
   return (
     <>
-      <h1 className="bg-red-300"> Hello react</h1>
-      <button className='btn'>hello</button>
+      <Navbar />
+      <Banner />
+      <CoinsTable />
     </>
   )
 }
