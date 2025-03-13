@@ -13,13 +13,16 @@ interface Coin {
 import { fetchCoinData } from '../../services/fetchCoinData'
 import { useQuery } from '@tanstack/react-query';
 import { CurrencyContext } from '../../context/CurrencyContext';
+import { useNavigate } from 'react-router';
 
 const CoinsTable = () => {
 
     // TODO: INR symbol and USD symbol
     const { currency } = useContext(CurrencyContext)
+    const navigate = useNavigate()
 
     const [page, setPage] = useState(1);
+
     const { isPending, isError, data, error } = useQuery({
         queryKey: ['coinData', page, currency],
         queryFn: () => fetchCoinData(page, currency),
@@ -32,6 +35,10 @@ const CoinsTable = () => {
 
 
     if (isError) return <div>Error: {error.message}</div>
+
+    const handleCoinRedirect = (id: string) => {
+        navigate(`/details/${id}`)
+    }
 
 
     return (
@@ -58,7 +65,7 @@ const CoinsTable = () => {
                 {
                     data && data.map((coin: Coin) => {
                         return (
-                            <div key={coin.id} className='w-full bg-transparent text-white flex py-4 px-2 font-semibold items-center justify-between'>
+                            <div onClick={() => handleCoinRedirect(coin.id)} key={coin.id} className='w-full bg-transparent text-white flex py-4 px-2 font-semibold items-center justify-between hover:cursor-pointer hover:bg-gray-800'>
 
                                 <div className='flex items-center justify-start gap-3 basis-[35%]'>
                                     <div className='w-[5rem] h-[5rem]'>
