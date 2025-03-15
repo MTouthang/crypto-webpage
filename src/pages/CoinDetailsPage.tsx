@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { CurrencyContext } from '../context/CurrencyContext'
 import { PageLoader } from '../components/PageLoader/PageLoader'
+import CoinInfoContainer from '../components/CoinInfo/CoinInfoContainer'
 
 const CoinDetailsPage = () => {
     const { coinId } = useParams<{ coinId: string }>()
@@ -61,7 +62,7 @@ const CoinDetailsPage = () => {
             </div>
 
             <div className='md:w-2/3 w-full p-6'>
-                Coin Information
+                <CoinInfoContainer coinId={coinId as string} />
             </div>
         </div>
 
