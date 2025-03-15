@@ -4,6 +4,7 @@ import { Facebook } from 'react-content-loader'
 import { PageLoader } from '../PageLoader/PageLoader'
 
 import MainLayout from '../../pages/layout'
+import CustomErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
 const Home = lazy(() => import('../../pages/Home'))
 const CoinDetailsPage = lazy(() => import('../../pages/CoinDetailsPage'))
@@ -11,7 +12,7 @@ const CoinDetailsPage = lazy(() => import('../../pages/CoinDetailsPage'))
 
 const Routing = () => {
     return (
-        <>
+        <CustomErrorBoundary>
             <Routes>
                 <Route path="/" element={<MainLayout />} >
                     {/* index keyword is used within a parent <Route> to indicate that it is the default  */}
@@ -35,7 +36,7 @@ const Routing = () => {
 
 
             </Routes>
-        </>
+        </CustomErrorBoundary>
     )
 }
 

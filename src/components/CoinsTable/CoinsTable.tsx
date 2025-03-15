@@ -27,8 +27,6 @@ const CoinsTable = () => {
     const { isPending, isError, data, error } = useQuery({
         queryKey: ['coinData', page, currency],
         queryFn: () => fetchCoinData(page, currency),
-        // retry: 2,
-        // retryDelay: 1000,
         staleTime: 1000 * 60 * 5,
 
     })

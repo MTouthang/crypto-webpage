@@ -18,7 +18,9 @@ const CoinDetailsPage = () => {
 
 
     if (isPending) return <PageLoader />
-    if (isError) return <div>Error: {error.message}</div>
+    console.log(error)
+    if (isError) throw new Error(`Error: ${error}`);
+
 
 
 
