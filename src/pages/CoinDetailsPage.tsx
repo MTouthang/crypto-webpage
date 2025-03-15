@@ -3,6 +3,7 @@ import { fetchCoinDetails } from '../services/fetchCoinDetails'
 import { useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { CurrencyContext } from '../context/CurrencyContext'
+import { PageLoader } from '../components/PageLoader/PageLoader'
 
 const CoinDetailsPage = () => {
     const { coinId } = useParams<{ coinId: string }>()
@@ -12,10 +13,11 @@ const CoinDetailsPage = () => {
         queryKey: ['coinDataDetails', coinId],
         queryFn: () => fetchCoinDetails(coinId as string),
         staleTime: 1000 * 60 * 5,
+
     })
 
 
-    if (isPending) return <div>Loading...</div>
+    if (isPending) return <PageLoader />
     if (isError) return <div>Error: {error.message}</div>
 
 
@@ -23,7 +25,7 @@ const CoinDetailsPage = () => {
     return (
         <div className='flex flex-col md:flex-row'>
             <div className='md:w-1/3 w-full flex flex-col items-center justify-center gap-5 md:mt-0 border-r-2 border-gray-300'>
-                <img src={coin?.image?.large} alt={coin?.name} className='h-52 mb-5' />
+                <img src={coin?.image?.large} alt={coin?.name} className='h-52 mb-5' loading='lazy' />
                 <h1
                     className='text-4xl font-bold text-white text-center mt-5 md:mt-0'
                 > {coin?.name}</h1>

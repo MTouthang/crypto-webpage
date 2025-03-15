@@ -14,6 +14,7 @@ import { fetchCoinData } from '../../services/fetchCoinData'
 import { useQuery } from '@tanstack/react-query';
 import { CurrencyContext } from '../../context/CurrencyContext';
 import { useNavigate } from 'react-router';
+import { PageLoader } from '../PageLoader/PageLoader';
 
 const CoinsTable = () => {
 
@@ -61,7 +62,7 @@ const CoinsTable = () => {
                 </div>
             </div>
             <div className='flex flex-col w-[80vw] mx-auto'>
-                {isPending && <div>Loading...</div>}
+                {isPending && <PageLoader />}
                 {
                     data && data.map((coin: Coin) => {
                         return (
@@ -69,7 +70,7 @@ const CoinsTable = () => {
 
                                 <div className='flex items-center justify-start gap-3 basis-[35%]'>
                                     <div className='w-[5rem] h-[5rem]'>
-                                        <img className='w-full h-full' src={coin.image} alt={coin.name} />
+                                        <img className='w-full h-full' src={coin.image} alt={coin.name} loading='lazy' />
                                     </div>
 
                                     <div className='flex flex-col'>
